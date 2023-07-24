@@ -42,7 +42,7 @@ public class Main {
         }
 
         private void drawBodies(Graphics g) {
-            java.util.List<Body> bodies = simulation.getSuns();
+            java.util.List<Body> bodies = simulation.getBodies();
 
             for (Body body : bodies) {
                 int radius = (int) body.radius;
