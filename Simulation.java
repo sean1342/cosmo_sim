@@ -14,30 +14,6 @@ class Body {
     }
 }
 
-// each individual square of Quad Tree
-class Cell {
-    List<Cell> childCells;
-    double centerOfMassX, centerOfMassY;
-}
-
-// Quad Tree for Barnes-Hut approximation
-class QuadTree {
-    List<Cell> cells;
-
-    public QuadTree genQuadTree(List<Body> bodies) {
-        QuadTree q = new QuadTree();
-
-        for(int i = 0; i < bodies.size(); i++) {
-            System.out.println(bodies.get(i).posX);
-        }
-
-        return q;
-    }
-
-    public void computeCenterOfMasses() {
-    }
-}
-
 public class Simulation {
     private List<Body> suns;
     private int tick;

@@ -25,6 +25,12 @@ public class Main {
         while (running) {
             simulation.step();
             canvas.repaint();
+            
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
