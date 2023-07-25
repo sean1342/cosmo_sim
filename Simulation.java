@@ -18,11 +18,21 @@ class Body {
 }
 
 public class Simulation {
+    public Quadtree quadtree;
+
+    private int size;
+
     private List<Body> suns;
     private int tick;
 
-    public Simulation() {
+    public Simulation(int size) {
+        this.size = size;
+
         suns = new ArrayList<>();
+
+        quadtree = new Quadtree(size / 2, size / 2, size);
+
+        quadtree.subdivide();
 
         suns.add(new Body(0, 0, 0, 0, 50));
         suns.add(new Body(100, 100, 0, 0, 100));
@@ -35,9 +45,9 @@ public class Simulation {
     public void step() {
         System.out.println("step " + tick);
 
-        for(int i = 0; i < suns.size(); i++) {
-            suns.get(i).posX += suns.get(i).velX;
-            suns.get(i).posY += suns.get(i).velY;
+        for(Body b : suns) {
+            b.posX += b.velX;
+            b.posY += b.velY;
         }
 
         tick++;

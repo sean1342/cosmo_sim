@@ -2,24 +2,24 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-    private static int width = 800;
-    private static int height = 800;
+    private static int size = 800;
     private static Simulation simulation;
     private static JFrame frame;
     private static Canvas canvas;
 
     public static void main(String[] args) {
-        simulation = new Simulation();
+        simulation = new Simulation(size);
 
         frame = new JFrame("N-Body Simulator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(width, height);
+        frame.setSize(size, size);
 
         canvas = new Canvas();
-        canvas.setSize(width, height);
+        canvas.setSize(size, size);
         frame.getContentPane().add(canvas);
 
         frame.setVisible(true);
+        simulation.quadtree.subdivide();
 
         boolean running = true;
         while (running) {
@@ -38,10 +38,13 @@ public class Main {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            drawBodies(g);
+            draw(g);
         }
 
-        private void drawBodies(Graphics g) {
+        private void draw(Graphics g) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+
             java.util.List<Body> bodies = simulation.getBodies();
 
             for (Body body : bodies) {
@@ -49,8 +52,8 @@ public class Main {
                 int posX = (int) body.posX;
                 int posY = (int) body.posY;
 
-                g.setColor(Color.BLUE);
-                g.fillOval(posX - radius + (width / 2), -(posY - radius) + (height / 2), radius * 2, radius * 2);
+                g.setColor(Color.WHITE);
+                g.fillOval(posX - radius + (size / 2), -(posY - radius) + (size / 2), radius * 2, radius * 2);
             }
         }
     }
