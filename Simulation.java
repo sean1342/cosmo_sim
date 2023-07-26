@@ -31,8 +31,8 @@ public class Simulation {
 
         quadtree.subdivide();
 
-        suns.add(new Body(60, 50, 0, 0, 150));
-        suns.add(new Body(100, 50, 0, 0, 300));
+        suns.add(new Body(180, 320, 0, 0, 150));
+        suns.add(new Body(50, 50, 0, 0, 300));
     }
 
     public List<Body> getBodies() {
@@ -53,9 +53,9 @@ public class Simulation {
         for (Quadtree q : quadsToCheck) {
             if (q.countBodies(suns) > 1 && q.children.size() == 0) {
                 q.subdivide();
-                for (Quadtree w : q.children) {
-                    quadsToAdd.add(w);
-                }
+            }
+            for (Quadtree w : q.children) {
+                quadsToAdd.add(w);
             }
         }
 

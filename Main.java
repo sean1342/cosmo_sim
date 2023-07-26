@@ -57,11 +57,11 @@ public class Main {
             }
 
             for (Quadtree q : simulation.quadtree.children) {
-                g.fillOval((int) q.x, (int) q.y, 5, 5);
+                g.drawRect((int) (q.x - q.size / 2), (int) (q.y - q.size / 2), (int) q.size, (int) q.size);
                 for (Quadtree w : q.children) {
-                    g.fillOval((int) w.x, (int) w.y, 5, 5);
+                    g.drawRect((int) (w.x - w.size / 2), (int) (w.y - w.size / 2), (int) w.size, (int) w.size);
                     for (Quadtree e : w.children) {
-                        g.fillOval((int) e.x, (int) e.y, 5, 5);
+                        g.drawRect((int) (e.x - e.size / 2), (int) (e.y + e.size / 2), (int) e.size, (int) e.size);
                     }
                 }
             }
