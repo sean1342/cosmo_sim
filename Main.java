@@ -55,6 +55,16 @@ public class Main {
                 g.setColor(Color.WHITE);
                 g.fillOval(posX - radius + (size / 2), -(posY - radius) + (size / 2), radius * 2, radius * 2);
             }
+
+            for (Quadtree q : simulation.quadtree.children) {
+                g.fillOval((int) q.x, (int) q.y, 5, 5);
+                for (Quadtree w : q.children) {
+                    g.fillOval((int) w.x, (int) w.y, 5, 5);
+                    for (Quadtree e : w.children) {
+                        g.fillOval((int) e.x, (int) e.y, 5, 5);
+                    }
+                }
+            }
         }
     }
 }

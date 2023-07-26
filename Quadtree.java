@@ -4,9 +4,9 @@ import java.util.List;
 public class Quadtree {
     public List<Quadtree> children;
 
-    private double x, y, width;
+    public double x, y, size;
 
-    public Quadtree(double x, double y, double width) {
+    public Quadtree(double x, double y, double size) {
         children = new ArrayList<>();
         // x,y marks center of quad
         // quad = 4 quadrants
@@ -19,23 +19,22 @@ public class Quadtree {
         // +------------+
         this.x = x;
         this.y = y;
-        this.width = width;
+        this.size = size;
     }
 
     public void subdivide() {
-        System.out.println("here");
         // top left, top right, bottom left, bottom right
-        children.add(new Quadtree(x - width / 4, y + width / 4, width / 2));
-        children.add(new Quadtree(x + width / 4, y + width / 4, width / 2));
-        children.add(new Quadtree(x - width / 4, y - width / 4, width / 2));
-        children.add(new Quadtree(x + width / 4, y - width / 4, width / 2));
+        children.add(new Quadtree(x - size / 4, y + size / 4, size / 2));
+        children.add(new Quadtree(x + size / 4, y + size / 4, size / 2));
+        children.add(new Quadtree(x - size / 4, y - size / 4, size / 2));
+        children.add(new Quadtree(x + size / 4, y - size / 4, size / 2));
     }
 
     public int countBodies(List<Body> bs) {
         int count = 0;
 
-        for(Body b : bs) {
-            if((b.posX <= x + width / 2) && (b.posX >= x - width / 2) && (b.posY <= y + width / 2) && (b.posY >= y - width / 2)) {
+        for (Body b : bs) {
+            if ((b.posX <= x + size / 2) && (b.posX >= x - size / 2) && (b.posY <= y + size / 2) && (b.posY >= y - size / 2)) {
                 count++;
             }
         }

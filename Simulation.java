@@ -20,13 +20,10 @@ class Body {
 public class Simulation {
     public Quadtree quadtree;
 
-    private int size;
-
     private List<Body> suns;
     private int tick;
 
     public Simulation(int size) {
-        this.size = size;
 
         suns = new ArrayList<>();
 
@@ -34,8 +31,8 @@ public class Simulation {
 
         quadtree.subdivide();
 
-        suns.add(new Body(0, 0, 0, 0, 50));
-        suns.add(new Body(100, 100, 0, 0, 100));
+        suns.add(new Body(60, 50, 0, 0, 150));
+        suns.add(new Body(100, 50, 0, 0, 300));
     }
 
     public List<Body> getBodies() {
@@ -45,11 +42,31 @@ public class Simulation {
     public void step() {
         System.out.println("step " + tick);
 
-        for(Body b : suns) {
+        List<Quadtree> quadsToCheck = new ArrayList<>();
+
+        for (Quadtree q : quadtree.children) {
+            quadsToCheck.add(q);
+        }
+
+        List<Quadtree> quadsToAdd = new ArrayList<>();
+
+        for (Quadtree q : quadsToCheck) {
+            if (q.countBodies(suns) > 1 && q.children.size() == 0) {
+                q.subdivide();
+                for (Quadtree w : q.children) {
+                    quadsToAdd.add(w);
+                }
+            }
+        }
+
+        // Add the newly created quadrants to the main quadsToCheck list
+        quadsToCheck.addAll(quadsToAdd);
+
+        for (Body b : suns) {
             b.posX += b.velX;
             b.posY += b.velY;
         }
 
         tick++;
-    }
+    }    
 }
